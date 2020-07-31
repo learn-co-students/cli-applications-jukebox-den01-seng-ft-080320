@@ -44,9 +44,9 @@ def play(songs)
   #ask input a song name OR track number
   puts "Please enter a song name or number:"
   song_input = gets.strip
-  songs.each_with_index do |index, value|
-    if song_input == (index + 1) or songs[value]
-      puts "Playing #{value}"
+  songs.each_with_index do |index, song|
+    if song_input == (index + 1) or song
+      puts "Playing #{song}"
     else
       puts "Invalid input, please try again."
     end
@@ -55,8 +55,8 @@ end
 
 def list(songs)
   #output song list
-  songs.each_with_index do |index, songs|
-     puts "#{index + 1}. #{songs[index]}"
+  songs.each_with_index do |index, song|
+     puts "#{index + 1}. #{song}"
    end
 end
 
