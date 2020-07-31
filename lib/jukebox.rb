@@ -14,20 +14,23 @@ songs = [
 
 # Add your code here
 def run(songs)
-puts "Please enter a command:"
-user_input = gets.strip
-while user_input.downcase != "exit"
-  if user_input.downcase == "help"
-   help
-  elsif user_input.downcase == "play"
-    play(songs)
-  elsif user_input.downcase == "list"
-    list(songs)
-  elsif user_input.downcase == "exit"
-    exit_jukebox
-end
-end
-exit_jukebox
+  while true do
+    puts "Please enter a command:"
+    response = gets.chomp
+    case response
+    when "exit"
+      exit_jukebox
+      break
+    when "play"
+      play(songs)
+    when "help"
+      help
+    when "list"
+      list(songs)
+    else
+      puts "Invalid entry"
+    end
+  end
 end
 
 
@@ -41,22 +44,25 @@ def help
 end
 
 def play(songs)
-  #ask input a song name OR track number
   puts "Please enter a song name or number:"
-  song_input = gets.strip
-  songs.each_with_index do |index, song|
-    if song_input == (index + 1) or song
-      puts "Playing #{song}"
-    else
-      puts "Invalid input, please try again."
-    end
+  response = gets.chomp
+  if response.to_i >= 1 && response.to_i <= songs.length
+    puts "Playing #{songs[response.to_i-1]}"
+  elsif songs.include?(response)
+    puts "Playing #{songs.find{|song| song == response}}"
+  else
+    puts "Invalid input, please try again"
   end
+end
+
+def exit_jukebox
+  puts "Goodbye"
 end
 
 def list(songs)
   #output song list
-  songs.each_with_index do |index, song|
-     puts "#{index + 1}. #{song}"
+  songs.each_with_index do |song, index|
+     puts "#{index+1}. #{song}"
    end
 end
 
